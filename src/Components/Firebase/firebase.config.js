@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_APIKEY,
-  authDomain: import.meta.env.VITE_AUTHDOMAIN,
-  projectId: import.meta.env.VITE_PROJECTEDID,
-  storageBucket: import.meta.env.VITE_STROGEBUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGEINGSENDERINGID,
-  appId: import.meta.env.VITE_APPID,
+  apiKey: "AIzaSyCxx4TwNwThk0Aj-7p1VT-ZYSAM9QbqLzc",
+  authDomain: "awesome-meals.firebaseapp.com",
+  projectId: "awesome-meals",
+  storageBucket: "awesome-meals.appspot.com",
+  messagingSenderId: "686390516585",
+  appId: "1:686390516585:web:d136210e2d552a20f3bbf8",
 };
 
 // Initialize Firebase

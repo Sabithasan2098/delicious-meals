@@ -1,13 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../Components/Shered/Navbar/Navbar";
 import Footer from "../Components/Shered/Footer/Footer";
 
 const Main = () => {
+  const location = useLocation();
+  const noHeaderFooter = location.pathname.includes("login", "register");
+
   return (
     <div>
-      <Navbar></Navbar>
+      {noHeaderFooter || <Navbar></Navbar>}
       <Outlet></Outlet>
-      <Footer></Footer>
+      {noHeaderFooter || <Footer></Footer>}
     </div>
   );
 };

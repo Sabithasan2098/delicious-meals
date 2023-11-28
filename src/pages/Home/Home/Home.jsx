@@ -3,10 +3,13 @@ import Announcement from "../Announcement";
 import Category from "../Category";
 import MemberShip from "../MemberShip";
 import Banner from "../banner";
-
+import { Helmet } from "react-helmet-async";
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>Awesome meals || home</title>
+      </Helmet>
       <Banner></Banner>
       <SectionTitle
         heading={"order online anytime"}

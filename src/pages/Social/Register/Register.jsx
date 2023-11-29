@@ -3,27 +3,23 @@ import registerImage from "../../../../public/login-register.avif";
 import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthProvider } from "../../../Providers/Provider";
-import Swal from "sweetalert2";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
   const { createUser } = useContext(AuthProvider);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    console.log(email, password);
-    createUser(email, password).then((result) => {
-      console.log(result.user);
-
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Your work has been saved",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+  const onSubmit = (data) => {
+    console.log(data);
+    createUser(data.email, data.password).then((result) => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+      reset();
     });
   };
 
@@ -42,18 +38,38 @@ const Register = () => {
               <h1 className="text-5xl font-bold">Register now!</h1>
             </div>
             <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-              <form onSubmit={handleRegister} className="card-body">
+              <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    {...register("name", { required: true })}
+                    name="name"
+                    placeholder="name"
+                    className="input input-bordered"
+                  />
+                  {errors.name && (
+                    <span className="text-red-400">Name field is required</span>
+                  )}
+                </div>
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Email</span>
                   </label>
                   <input
                     type="email"
+                    {...register("email", { required: true })}
                     name="email"
                     placeholder="email"
                     className="input input-bordered"
-                    required
                   />
+                  {errors.email && (
+                    <span className="text-red-400">
+                      Email field is required
+                    </span>
+                  )}
                 </div>
                 <div className="form-control">
                   <label className="label">
@@ -61,11 +77,38 @@ const Register = () => {
                   </label>
                   <input
                     type="password"
+                    {...register("password", {
+                      required: true,
+                      minLength: 6,
+                      maxLength: 20,
+                      pattern:
+                        /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
+                    })}
                     name="password"
                     placeholder="password"
                     className="input input-bordered"
-                    required
                   />
+                  {errors.password && (
+                    <span className="text-red-400">
+                      Password field is required
+                    </span>
+                  )}
+                  {errors.password?.type === "minLength" && (
+                    <p className="text-red-400">
+                      Password must be 6 characters
+                    </p>
+                  )}
+                  {errors.password?.type === "maxLength" && (
+                    <p className="text-red-400">
+                      Password must be less than 20 characters
+                    </p>
+                  )}
+                  {errors.password?.type === "pattern" && (
+                    <p className="text-red-400">
+                      Password must have 1 uppercase 1 special character 1
+                      number and 1 lowercase
+                    </p>
+                  )}
                 </div>
                 <div className="form-control mt-6">
                   <button className="btn btn-primary">Register</button>

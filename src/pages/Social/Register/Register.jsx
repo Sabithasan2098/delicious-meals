@@ -56,6 +56,21 @@ const Register = () => {
                 </div>
                 <div className="form-control">
                   <label className="label">
+                    <span className="label-text">Photo URL</span>
+                  </label>
+                  <input
+                    type="text"
+                    {...register("photo", { required: true })}
+                    name="photo"
+                    placeholder="photo url"
+                    className="input input-bordered"
+                  />
+                  {errors.name && (
+                    <span className="text-red-400">Photo URL is required</span>
+                  )}
+                </div>
+                <div className="form-control">
+                  <label className="label">
                     <span className="label-text">Email</span>
                   </label>
                   <input

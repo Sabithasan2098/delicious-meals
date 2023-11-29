@@ -14,6 +14,9 @@ const Navbar = () => {
       <li>
         <Link to="/">Home</Link>
       </li>
+      <li>
+        <Link to="/category">Menu</Link>
+      </li>
       {user ? (
         <>
           <button onClick={handleLogOut} className="btn btn-error">
